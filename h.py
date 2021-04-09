@@ -1,10 +1,11 @@
 from tkinter import * 
 import tkinter as tk
 from hentai import Hentai, Format
-import os
+import os 
 import shutil
 import requests
 import msvcrt
+import shlex, subprocess
 import time
 
 
@@ -17,6 +18,7 @@ class Windown():
     codi = entry.get()
     button = tk.Button(canvas)
     ico = 'nhentai.ico'
+    value = 3
 
     def check_file(self):
         if os.path.isdir('H7u7H') == False:
@@ -28,6 +30,16 @@ class Windown():
         self.body.iconbitmap(self.ico)
         self.body.config(bg= self.color)
         self.body.mainloop()
+    def params_label(self, num):
+      label = Label(self.body)
+      if num == 0:
+        frame2 = PhotoImage(file='Murimuri.gif', format="gif -index 2")
+      elif num == 1:
+        frame2 = PhotoImage(file='Murimuri.gif', format="gif -index 2")
+      else:
+        frame2 = PhotoImage(file='Murimuri.gif', format="gif -index 2")
+      print('pero si entra a la funcion {}'.format(self.value))
+      label.configure(image=frame2)
     def params_canvas(self):
         self.canvas.pack()
         self.canvas.config(bg=self.color)      
@@ -39,15 +51,15 @@ class Windown():
         self.check_file()
         self.params_canvas()
         self.params_entry(onEnter)
+        self.params_label(self.value)
         self.params_body()
 windowns = Windown()
-
 def onEnter(event):
   codi = windowns.entry.get()
   windowns.entry.delete(0, tk.END)
   code(codi)
 def code(codi):
-#  print(codi)
+  time.sleep(100)
   downloadH(codi)
 def downloadH(code):
   try:
@@ -56,9 +68,10 @@ def downloadH(code):
       doujin.download(progressbar=True )
       shutil.move('{}'.format(code), 'H7u7H')
     else:
-      print('esta descargado')
+      windowns.value = 0
   except requests.HTTPError:
-    print('no existe esa wea')
+    windowns.value = 1
+    print('da error')
 
 
 windowns.start(onEnter)
