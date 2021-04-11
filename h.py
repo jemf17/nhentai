@@ -18,8 +18,6 @@ class Windown():
     codi = entry.get()
     button = tk.Button(canvas)
     ico = 'nhentai.ico'
-    value = 3
-
     def check_file(self):
         if os.path.isdir('H7u7H') == False:
             os.makedirs('H7u7H')
@@ -30,16 +28,22 @@ class Windown():
         self.body.iconbitmap(self.ico)
         self.body.config(bg= self.color)
         self.body.mainloop()
-    def params_label(self, num):
-      label = Label(self.body)
+    def params_label(self, num = NONE):
+      label = Label(self.body, bg= self.color)
       if num == 0:
         frame2 = PhotoImage(file='Murimuri.gif', format="gif -index 2")
+        label.configure(image=nextframe, text='')
+        
       elif num == 1:
         frame2 = PhotoImage(file='Murimuri.gif', format="gif -index 2")
+        label.configure(image=nextframe, text='')
+       
       else:
-        frame2 = PhotoImage(file='Murimuri.gif', format="gif -index 2")
-      print('pero si entra a la funcion {}'.format(self.value))
-      label.configure(image=frame2)
+       label.configure(text='hola mundo')
+        
+      label.pack()
+      print('pero si entra a la funcion {}'.format(num))
+      
     def params_canvas(self):
         self.canvas.pack()
         self.canvas.config(bg=self.color)      
@@ -51,7 +55,7 @@ class Windown():
         self.check_file()
         self.params_canvas()
         self.params_entry(onEnter)
-        self.params_label(self.value)
+        self.params_label()
         self.params_body()
 windowns = Windown()
 def onEnter(event):
@@ -59,18 +63,19 @@ def onEnter(event):
   windowns.entry.delete(0, tk.END)
   code(codi)
 def code(codi):
-  time.sleep(100)
   downloadH(codi)
 def downloadH(code):
   try:
     doujin = Hentai(code)
     if os.path.isdir('H7u7H\{}'.format(code)) == False:
-      doujin.download(progressbar=True )
+      doujin.download(progressbar=True)
+      windowns.params_label(3)
       shutil.move('{}'.format(code), 'H7u7H')
     else:
-      windowns.value = 0
+      print('esta descargado')
+      windowns.params_label(1)
   except requests.HTTPError:
-    windowns.value = 1
+    windowns.params_label(0)
     print('da error')
 
 
