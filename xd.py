@@ -1,8 +1,6 @@
-import tkinter as tk
+from hentai import Hentai, Format
 
-body = Tk()
-body.geometry('400x150')
-body.title("Nhentai App")
-body.resizable(False, False)
-body.config(bg= '#161616')
-body.mainloop()
+i = int(input('code: '))
+doujin = Hentai(i)
+
+print(doujin.image_urls)

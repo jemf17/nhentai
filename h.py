@@ -28,6 +28,7 @@ class Windown():
         self.body.iconbitmap(self.ico)
         self.body.config(bg= self.color)
         self.body.mainloop()
+    '''
     def params_label(self, num = NONE):
       label = Label(self.body, bg= self.color)
       if num == 0:
@@ -43,7 +44,7 @@ class Windown():
         
       label.pack()
       print('pero si entra a la funcion {}'.format(num))
-      
+      '''
     def params_canvas(self):
         self.canvas.pack()
         self.canvas.config(bg=self.color)      
@@ -55,7 +56,7 @@ class Windown():
         self.check_file()
         self.params_canvas()
         self.params_entry(onEnter)
-        self.params_label()
+        #self.params_label()
         self.params_body()
 windowns = Windown()
 def onEnter(event):
